@@ -6,6 +6,9 @@ defineProps<{
 </script>
 
 <template>
+  <div>
+    <p>Congrats!...</p>
+  </div>
   <picture class="PosterMovie">
     <img alt="" :src="getPosterImage(imdbId)" />
   </picture>

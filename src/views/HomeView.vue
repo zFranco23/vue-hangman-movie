@@ -7,6 +7,7 @@ import GameInitializer from '../components/game-initializer/GameInitializer.vue'
 import { getRandomMovie } from '@/helpers/get-random-movie'
 import type { Movie } from '@/models/movie'
 
+const win = ref<boolean>(false)
 const isGameStarted = ref<boolean>(false)
 
 const { validateMovie } = useMovieValidation()
@@ -14,9 +15,12 @@ const { validateMovie } = useMovieValidation()
 const movieEval = ref<Movie | undefined>()
 
 const onValidateInputComplete = (v: string) => {
-  const isValid = validateMovie(movieEval.value?.original_title ?? '', v)
+  const isValid = validateMovie(movieEval.value?.title ?? '', v)
 
-  if (isValid) console.log('asdas')
+  console.log(isValid)
+  if (isValid) {
+    win.value = true
+  }
 }
 
 const onGameStart = async () => {
@@ -30,13 +34,12 @@ const onGameStart = async () => {
 
 <template>
   <div>
-    <h1>Hangman video game</h1>
-
     <GameInitializer v-if="!isGameStarted" @game-start="onGameStart" />
 
     <MovieGame
       v-else-if="movieEval"
       :movie="movieEval"
+      :win="win"
       @input-completed="onValidateInputComplete"
     />
   </div>

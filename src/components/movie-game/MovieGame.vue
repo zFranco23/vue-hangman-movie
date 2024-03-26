@@ -5,6 +5,7 @@ import MoviePoster from '../movie-poster/MoviePoster.vue'
 
 defineProps<{
   movie: Movie
+  win: boolean
 }>()
 
 defineEmits<{
@@ -13,12 +14,18 @@ defineEmits<{
 </script>
 
 <template>
-  <div>
-    <MovieCompleteInput
-      @input-completed="(v) => $emit('input-completed', v)"
-      :name="movie.original_title"
-    />
+  <div class="MovieGame">
+    <h1>Let's find this movie:</h1>
+    <MovieCompleteInput @input-completed="(v) => $emit('input-completed', v)" :name="movie.title" />
 
-    <MoviePoster :imdb-id="movie.imdb_id" />
+    <MoviePoster v-if="win" :imdb-id="movie.imdb_id" />
   </div>
 </template>
+
+<style scoped lang="scss">
+.MovieGame {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+</style>

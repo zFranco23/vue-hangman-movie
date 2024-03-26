@@ -75,6 +75,7 @@ const movieLength = computed(() => props.name.length)
 .input_group {
   margin: 16px 0;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 
   input {
