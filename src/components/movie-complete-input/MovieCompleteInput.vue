@@ -5,7 +5,7 @@ const inputsRefs = ref<HTMLInputElement[]>([])
 
 // definitions
 const textValues = ref<Array<string>>([])
-const props = defineProps<{ movie: string }>()
+const props = defineProps<{ name: string }>()
 const emit = defineEmits<{
   (e: 'input-completed', value: string): void
 }>()
@@ -47,13 +47,13 @@ const handleVerifyComplete = () => {
   }
 }
 
-const movieLength = computed(() => props.movie.length)
+const movieLength = computed(() => props.name.length)
 </script>
 <template>
-  <div>word: {{ props.movie }}</div>
+  <div>word: {{ props.name }}</div>
 
   <div class="input_group">
-    <template v-for="(letter, index) of props.movie" :key="letter + index">
+    <template v-for="(letter, index) of props.name" :key="letter + index">
       <input
         id="input"
         @input="(e) => handleInputChange(e)"
@@ -64,8 +64,7 @@ const movieLength = computed(() => props.movie.length)
         maxlength="1"
         ref="inputsRefs"
         :style="{
-          marginRight:
-            index < movieLength - 1 && props.movie[index + 1] === ' ' ? '60px' : undefined
+          marginRight: index < movieLength - 1 && props.name[index + 1] === ' ' ? '60px' : undefined
         }"
       />
     </template>
