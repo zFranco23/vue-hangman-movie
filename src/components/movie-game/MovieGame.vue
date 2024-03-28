@@ -16,7 +16,7 @@ defineEmits<{
 <template>
   <div class="MovieGame">
     <h1>Let's find this movie:</h1>
-    <MovieCompleteInput @input-completed="(v) => $emit('input-completed', v)" :name="movie.title" />
+    <MovieCompleteInput @input-completed="(v) => $emit('input-completed', v)" :movie="movie" />
 
     <MoviePoster v-if="win" :imdb-id="movie.imdb_id" />
   </div>

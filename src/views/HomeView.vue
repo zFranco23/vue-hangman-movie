@@ -17,9 +17,11 @@ const movieEval = ref<Movie | undefined>()
 const onValidateInputComplete = (v: string) => {
   const isValid = validateMovie(movieEval.value?.title ?? '', v)
 
-  console.log(isValid)
   if (isValid) {
+    console.log('win')
     win.value = true
+  } else {
+    console.log('false')
   }
 }
 
