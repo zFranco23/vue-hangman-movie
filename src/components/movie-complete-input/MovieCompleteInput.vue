@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { Movie } from '@/models/movie'
+import { useGameStore } from '@/store/game-store'
 import { computed, onMounted, ref } from 'vue'
 
+const gameStore = useGameStore()
 const inputsRefs = ref<HTMLInputElement[]>([])
 
 // definitions
@@ -13,8 +15,9 @@ const emit = defineEmits<{
 
 const movieLength = computed(() => props.movie.title.length)
 const movieName = computed(() => props.movie.title)
-
 const splittedMovieName = computed(() => movieName.value.split(' '))
+
+const inputsDisabled = computed(() => gameStore.win || gameStore.lose)
 
 const handleInputChange = (e: Event) => {
   const target = e.target as HTMLInputElement
@@ -33,7 +36,6 @@ const handleKeyUp = (e: KeyboardEvent) => {
   const key = e.key.toLowerCase()
 
   if (key == 'backspace' || key == 'delete') {
-    // target.value = ''
     const prev = target.previousElementSibling as HTMLInputElement | null
     if (prev) {
       prev.focus()
@@ -110,6 +112,7 @@ onMounted(() => {
         @keyup="handleKeyUp"
         v-model="textValues[wordIndex * movieLength + index]"
         type="text"
+        :disabled="inputsDisabled"
         maxlength="1"
         ref="inputsRefs"
         :style="{
